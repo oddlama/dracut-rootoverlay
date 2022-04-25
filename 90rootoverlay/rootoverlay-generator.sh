@@ -33,13 +33,13 @@ esac
 	echo "[Unit]"
 	echo "Before=initrd-root-fs.target"
 	echo "After=sysroot.mount"
-	echo "RequiresMountsFor=/run/rootoverlay"
+	echo "RequiresMountsFor=/run/rootoverlay /sysroot"
 	echo "[Mount]"
 	echo "Type=overlay"
 	echo "What=overlay"
-	echo "Where=/sysroot"
+	echo "Where=/sysroot-rootoverlay"
 	echo "Options=lowerdir=/sysroot,upperdir=/run/rootoverlay/upper,workdir=/run/rootoverlay/work"
-} > "$GENERATOR_DIR"/sysroot.mount
+} > "$GENERATOR_DIR"/sysroot-rootoverlay.mount
 
 mkdir -p "$GENERATOR_DIR"/initrd-root-fs.target.requires
-ln -fs ../sysroot.mount "$GENERATOR_DIR"/initrd-root-fs.target.requires/sysroot.mount
+ln -fs ../sysroot-rootoverlay.mount "$GENERATOR_DIR"/initrd-root-fs.target.requires/sysroot-rootoverlay.mount
